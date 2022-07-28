@@ -25,6 +25,8 @@ namespace GameLauncher
         private string versionFile;
         private string gameZip;
         private string gameExe;
+        string versionDownloadLink= "https://drive.google.com/uc?export=download&id=1k4_XKtsYMah1Z7zYrc6LTPkkFPBiblvs";
+        string filesDownloadLink="https://drive.google.com/uc?export=download&id=1k4_XKtsYMah1Z7zYrc6LTPkkFPBiblvs";
 
         private LauncherStatus _status;
         internal LauncherStatus Status
@@ -73,7 +75,7 @@ namespace GameLauncher
                 try
                 {
                     WebClient webClient = new WebClient();
-                    Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
+                    Version onlineVersion = new Version(webClient.DownloadString(versionDownloadLink));
 
                     if (onlineVersion.IsDifferentThan(localVersion))
                     {
@@ -108,11 +110,11 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    _onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
+                    _onlineVersion = new Version(webClient.DownloadString(versionDownloadLink));
                 }
 
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
-                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1SNA_3P5wVp4tZi5NKhiGAAD6q4ilbaaf"), gameZip, _onlineVersion);
+                webClient.DownloadFileAsync(new Uri(filesDownloadLink), gameZip, _onlineVersion);
             }
             catch (Exception ex)
             {
